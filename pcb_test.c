@@ -20,5 +20,12 @@ int main(int theArgC, char* theArgV[]){
       ) {
         puts("intitializer passed test");
     }
-        
+    
+    //test set pid
+    PCB_set_pid(test1, 123456789UL);
+    if(test1->pid == 123456789UL){
+        puts("Setting pid was suceesful");
+    } else {
+        puts("setting pid failed");
+    }
  } 
