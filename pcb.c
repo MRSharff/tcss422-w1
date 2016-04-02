@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "pcb.h"
 
 typedef enum state_type {
   new, ready, running, interrupted, waiting, halted
 } State;
 
-const int SUCCESS = 1;
-const int NO_OBJECT = 2;
+// const int SUCCESS = 1;
+// const int NULL_OBJECT = 2;
 
-const unsigned long DEFAULT_PID = 0;
-const State DEFAULT_STATE = new;
-const unsigned long DEFAULT_PC = 0;
+// const unsigned long DEFAULT_PID = 0;
+// const State DEFAULT_STATE = new;
+// const unsigned long DEFAULT_PC = 0;
 
 
 
@@ -40,7 +41,7 @@ void PCB_destruct(PCB_p pcb) {
 
 int PCB_init(PCB_p pcb) {
   if (pcb == NULL) {
-    return NO_OBJECT;
+    return NULL_OBJECT;
   }
   pcb->pid = DEFAULT_PID;
   pcb->state = DEFAULT_STATE;
@@ -50,7 +51,7 @@ int PCB_init(PCB_p pcb) {
 
 int PCB_set_pid(PCB_p pcb, unsigned long pid) {
   if (pcb == NULL) {
-    return NO_OBJECT;
+    return NULL_OBJECT;
   }
   pcb->pid = pid;
   return SUCCESS;
@@ -63,7 +64,7 @@ unsigned long PCB_get_pid(PCB_p pcb) {
 
 int PCB_set_state(PCB_p pcb, State state) {
   if (pcb == NULL) {
-    return NO_OBJECT;
+    return NULL_OBJECT;
   }
   pcb->state = state;
   return SUCCESS;
