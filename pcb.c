@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include "pcb.h"
 
-typedef enum state_type {
-  new, ready, running, interrupted, waiting, halted
-} State;
+// typedef enum state_type {
+//   new, ready, running, interrupted, waiting, halted
+// } State;
 
 // const int SUCCESS = 1;
 // const int NULL_OBJECT = 2;
@@ -14,21 +14,19 @@ typedef enum state_type {
 // const State DEFAULT_STATE = new;
 // const unsigned long DEFAULT_PC = 0;
 
+// typedef struct pcb {
+//   unsigned long pid;
+//   State state;
+//   unsigned short priority;
+//   unsigned long pc;
+// } PCB;
+//
+// typedef PCB * PCB_p;
 
-
-typedef struct pcb {
-  unsigned long pid;
-  State state;
-  unsigned short priority;
-  unsigned long pc;
-} PCB;
-
-typedef PCB * PCB_p;
-
-//Used for generating random priority in init function
-int generate_priority() {
-  return (unsigned short) rand() % 32;
-}
+// //Used for generating random priority in init function
+// int generate_priority(void) {
+//   return (unsigned short) rand() % 32;
+// }
 
 //Member Functions
 PCB_p PCB_construct (void) {
@@ -45,7 +43,7 @@ int PCB_init(PCB_p pcb) {
   }
   pcb->pid = DEFAULT_PID;
   pcb->state = DEFAULT_STATE;
-  pcb->priority = generate_priority();
+  pcb->priority = DEFAULT_PRIORITY;
   pcb->pc = DEFAULT_PC;
 }
 
