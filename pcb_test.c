@@ -1,4 +1,5 @@
 #include "pcb.h"
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 /** Checks if construction is successful.*/
@@ -59,7 +60,7 @@ void testToString(char * theStr){
 	PCB_set_pid(t1, 123456789UL);
 	PCB_toString(t1, theStr);
 	printf("%s\n",theStr);
-	if (strcmp(theStr, "PID: 0x75BCD15, State: 0, Priority: 0, PC: 0")) {
+	if (strcmp(theStr, "PID: 75BCD15, State: 0, Priority: 0, PC: 0")) {
 		puts("toString failed");
 	} else {
 		
