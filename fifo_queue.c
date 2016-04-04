@@ -1,4 +1,5 @@
 #include "fifo_queue.h"
+#include "pcb.h"
 #include <stdlib.h>
 
 typedef struct node {

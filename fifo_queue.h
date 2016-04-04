@@ -1,5 +1,5 @@
-#ifndef FIFO_QUEUE
-#define FIFO_QUEUE
+#ifndef FIFO_QUEUE_H
+#define FIFO_QUEUE_H
 
 typedef struct FIFO_q {
     int size;
