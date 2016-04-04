@@ -45,6 +45,8 @@ int PCB_init(PCB_p pcb) {
   pcb->state = DEFAULT_STATE;
   pcb->priority = DEFAULT_PRIORITY;
   pcb->pc = DEFAULT_PC;
+
+  return 1;
 }
 
 int PCB_set_pid(PCB_p pcb, unsigned long pid) {
