@@ -74,6 +74,18 @@ State PCB_get_state(PCB_p pcb) {
   return pcb->state;
 }
 
+int PCB_set_priority(PCB_p pcb, unsigned short priority) {
+  if (pcb == NULL) {
+    return NULL_OBJECT;
+  }
+  pcb->priority = priority;
+  return SUCCESS;
+}
+
+unsigned short PCB_get_priority(PCB_p pcb) {
+  return pcb->priority;
+}
+
 char * PCB_toString(PCB_p pcb, char * string) {
   sprintf(string, "PID: %0lx, State: %d, Priority: %0x, PC: %0lx",
           pcb->pid, pcb->state, pcb->priority, pcb->pc);
