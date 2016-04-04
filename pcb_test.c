@@ -1,8 +1,6 @@
 #include "pcb.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-
 /** Checks if construction is successful.*/
 void testConstructor(){
 	PCB_p t1 = PCB_construct();
@@ -17,15 +15,16 @@ void testConstructor(){
 void testInitializer() {
 	PCB_p t1 = PCB_construct();
 	PCB_init(t1);
-    if(tes1->pid == DEFAULT_PID
-        && test->state == NEW
-        && test->priority == DEFAULT_PRIORITY
-        && test->pc == DEFAULT_PC
+    if(t1->pid == DEFAULT_PID
+        && t1->state == DEFAULT_STATE
+        && t1->priority == DEFAULT_PRIORITY
+        && t1->pc == DEFAULT_PC
       ) {
         puts("initializer passed test");
     } else {
-		puts("initializer failed")
+		puts("initializer failed");
 	}
+	free(t1);
 }
 /** Checks if setting pid works. */
 void testSetPid() {
@@ -37,6 +36,7 @@ void testSetPid() {
     } else {
         puts("setting pid failed");
     }
+	free(t1);
 }
 /** Test if the get_pid retrieves correct pid. */
 void testGetPid() {
@@ -49,6 +49,7 @@ void testGetPid() {
 	} else {
 		puts("get pid failed");
 	}
+	free(t1);
 }
 /** Checks if toString correctly represents
 	the pcb state*/
@@ -57,11 +58,14 @@ void testToString(char * theStr){
 	PCB_init(t1);
 	PCB_set_pid(t1, 123456789UL);
 	PCB_toString(t1, theStr);
-	if (strcmp(theStr, "pid: 123456789, state: 0, priority: 31, pc: 0")) {
-		puts("toString passed");
-	} else {
+	printf("%s\n",theStr);
+	if (strcmp(theStr, "PID: 0x75BCD15, State: 0, Priority: 0, PC: 0")) {
 		puts("toString failed");
-	}	
+	} else {
+		
+		puts("toString passed");
+	}
+	free(t1);	
 }
 /** Driver for testing all methods of pcb.*/
 int main(int theArgC, char* theArgV[]){
