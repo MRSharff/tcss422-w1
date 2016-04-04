@@ -20,10 +20,15 @@ int FIFOq_is_empty(FIFOq_p queue) {
     return queue->front == queue->rear;
 }
 
-void FIFOq_enqueue(FIFOq_p queue) {
+void FIFOq_enqueue(FIFOq_p queue, PCB_p pcb) {
+    Node* node = (Node*) malloc(sizeof(Node));
+    node->pcb = pcb;
 
+    if(FIFOq_is_empty(queue)) {
+
+    }
 }
 
-int FIFOq_dequeue(FIFOq_p queue) {
-    return -1;
+FIFOq_p FIFOq_dequeue() {
+    return NULL;
 }
