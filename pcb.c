@@ -38,15 +38,14 @@ void PCB_destruct(PCB_p pcb) {
 }
 
 int PCB_init(PCB_p pcb) {
-  if (pcb == NULL) {
-    return NULL_OBJECT;
-  }
-  pcb->pid = DEFAULT_PID;
-  pcb->state = DEFAULT_STATE;
-  pcb->priority = DEFAULT_PRIORITY;
-  pcb->pc = DEFAULT_PC;
-
-  return 1;
+    if (pcb == NULL) {
+        return NULL_OBJECT;
+    }
+    pcb->pid = DEFAULT_PID;
+    pcb->state = DEFAULT_STATE;
+    pcb->priority = DEFAULT_PRIORITY;
+    pcb->pc = DEFAULT_PC;
+    return SUCCESS;
 }
 
 int PCB_set_pid(PCB_p pcb, unsigned long pid) {
