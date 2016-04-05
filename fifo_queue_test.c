@@ -24,9 +24,9 @@ void testInitializer() {
     FIFOq_p fq = FIFOq_construct();
     FIFOq_init(fq);
     if (fq->size == 0 && fq->front == NULL && fq->rear == NULL) {
-        puts("FIFO_init passed");
+        puts("FIFOq_init passed");
     } else {
-        puts("FIFO_init failed");
+        puts("FIFOq_init failed");
     }
     FIFOq_destruct(fq);
 }
@@ -35,9 +35,9 @@ void testisEmpty() {
     FIFOq_p fq = FIFOq_construct();
     FIFOq_init(fq);
     if (FIFOq_is_empty(fq)) {
-        puts("FIFO_is_empty passed");
+        puts("FIFOq_is_empty passed");
     } else {
-        puts("FIFO_is_empty failed");
+        puts("FIFOq_is_empty failed");
     }
     FIFOq_destruct(fq);
 }
@@ -76,9 +76,9 @@ void testDequeue(PCB_p testPCB) {
     PCB_toString(dqPCB, pcbqstring);
 
     if (strcmp(pcbqstring, pcbteststring) == 0) {
-        puts("FIFO_dequeue passed");
+        puts("FIFOq_dequeue passed");
     } else {
-        puts("FIFO_dequeue failed");
+        puts("FIFOq_dequeue failed");
     }
 }
 
@@ -99,7 +99,7 @@ void stressTest() {
         FIFOq_enqueue(fq, pcb);
 
         int string_size = 32 + (4 * FIFOq_size(fq)) + 1;    // 32 for header, 4 for each node, 1 for \0
-        char* fq_string = (char*) malloc(string_size);
+        char* fq_string = (char*) malloc((size_t) string_size);
         FIFOq_toString(fq, fq_string, string_size);
 
         char pcb_string[100];
@@ -138,7 +138,7 @@ void stressTest() {
 }
 
 unsigned short generate_priority() {
-    return (unsigned short) rand() % 32;
+    return (unsigned short) (rand() % 32);
 }
 
 int main(void) {
@@ -153,9 +153,9 @@ int main(void) {
     testEnqueue(testPCB);
     testDequeue(testPCB);
 
-    srand(time(NULL));
+    srand((unsigned int) time(NULL));
     stressTest();
 
     PCB_destruct(testPCB);
-    puts("End Test");
+    puts("End FIFO_queue Test");
 }
