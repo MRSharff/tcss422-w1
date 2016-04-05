@@ -6,34 +6,28 @@ FIFOq_p FIFOq_construct() {
     return (FIFOq_p) malloc(sizeof(FIFOq));
 }
 
-Node_p NODE_construct(void) {
-    Node_p retNode = malloc(sizeof(Node));
-    if (retNode == NULL) {
-        return NULL;
-    }
-    retNode->pcb = malloc(sizeof(PCB));
-    retNode->next = malloc(sizeof(Node));
-    if (retNode->pcb == NULL || retNode->next == NULL) {
-        free(retNode);
-        return NULL;
-    }
-    return retNode;
-}
-
 int FIFOq_init(FIFOq_p queue) {
     if(queue == NULL) {
         return NULL_OBJECT;
     }
 
     queue->size = 0;
+    free(queue->front);     // In case an old node was previously allocated here.
     queue->front = NULL;
+    free(queue->rear);      // In case an old node was previously allocated here.
     queue->rear = NULL;
     return SUCCESS;
 }
 
-    int FIFOq_destruct(FIFOq_p fqueue) {
-        free(fqueue);
+int FIFOq_destruct(FIFOq_p fqueue) {
+    // Free all of the nodes in memory.
+    while(fqueue->front != NULL) {
+        Node_p temp = fqueue->front;
+        fqueue->front = fqueue->front->next;
+        free(temp);
     }
+    free(fqueue);
+}
 
 int FIFOq_is_empty(FIFOq_p queue) {
     if (queue->size == 0) {
@@ -47,7 +41,7 @@ int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb) {
         return NULL_OBJECT;
     }
 
-    Node* new_node = (Node*) malloc(sizeof(Node));
+    Node_p new_node = (Node_p) malloc(sizeof(Node));
     new_node->pcb = pcb;
     new_node->next = NULL;
 
@@ -68,7 +62,7 @@ PCB_p FIFOq_dequeue(FIFOq_p queue) {
         return NULL;
     }
 
-    Node* old_front = queue->front;
+    Node_p old_front = queue->front;
     queue->front = queue->front->next;
     queue->size--;
 

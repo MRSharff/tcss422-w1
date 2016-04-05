@@ -42,7 +42,7 @@ int PCB_init(PCB_p pcb) {
         return NULL_OBJECT;
     }
     pcb->pid = DEFAULT_PID;
-    pcb->state = DEFAULT_STATE;
+    pcb->state = (State) DEFAULT_STATE;
     pcb->priority = DEFAULT_PRIORITY;
     pcb->pc = DEFAULT_PC;
     return SUCCESS;
