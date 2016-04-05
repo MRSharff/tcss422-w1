@@ -1,6 +1,12 @@
 #ifndef FIFO_QUEUE
 #define FIFO_QUEUE
 
+#include "pcb.h"
+
+// Error Handling Values
+#define SUCCESS 0
+#define NULL_OBJECT -1
+
 typedef struct FIFO_q {
     int size;
     struct node* front;
@@ -9,9 +15,9 @@ typedef struct FIFO_q {
 typedef FIFOq* FIFOq_p;
 
 FIFOq_p FIFOq_construct(void);
-FIFOq_p FIFOq_init(FIFOq_p queue);
+int FIFOq_init(FIFOq_p queue);
 int FIFOq_is_empty(FIFOq_p queue);
-void FIFOq_enqueue(FIFOq_p queue, PCB_p pcb);
-FIFOq_p FIFOq_dequeue();
+int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb);
+PCB_p FIFOq_dequeue(FIFOq_p queue);
 
 #endif
