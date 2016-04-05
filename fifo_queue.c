@@ -3,7 +3,15 @@
 #include <stdio.h>
 
 FIFOq_p FIFOq_construct() {
-    return (FIFOq_p) malloc(sizeof(FIFOq));
+    FIFOq_p fq = (FIFOq_p) malloc(sizeof(FIFOq));
+
+    // Sometimes we get segfaults if the OS tries to allocate the same memory location.
+    if(fq != NULL) {
+        fq->front = NULL;
+        fq->rear = NULL;
+    }
+
+    return fq;
 }
 
 int FIFOq_init(FIFOq_p queue) {
@@ -21,12 +29,15 @@ int FIFOq_init(FIFOq_p queue) {
 
 int FIFOq_destruct(FIFOq_p fqueue) {
     // Free all of the nodes in memory.
-    while(fqueue->front != NULL) {
-        Node_p temp = fqueue->front;
-        fqueue->front = fqueue->front->next;
+    Node_p traverse = fqueue->front;
+    while(traverse != NULL) {
+        Node_p temp = traverse;
+        traverse = traverse->next;
         free(temp);
     }
     free(fqueue);
+
+    return SUCCESS;
 }
 
 int FIFOq_is_empty(FIFOq_p queue) {
@@ -34,6 +45,14 @@ int FIFOq_is_empty(FIFOq_p queue) {
         return 1;
     }
     return 0;
+}
+
+int FIFOq_size(FIFOq_p queue) {
+    if(queue == NULL) {
+        return NULL_OBJECT;
+    } else {
+        return queue->size;
+    }
 }
 
 int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb) {
@@ -70,4 +89,33 @@ PCB_p FIFOq_dequeue(FIFOq_p queue) {
     free(old_front);
 
     return result;
+}
+
+char* FIFOq_toString(FIFOq_p queue, char* string, int size) {
+    // Note: We assume that the controller has allocated a string of appropriate size (using FIFOq_size() function).
+    int offset = 0;
+    int consumption = snprintf(string, size, "Q:Count=%d: ", FIFOq_size(queue));
+    offset += consumption;
+    size -= consumption;
+
+    Node_p front = queue->front;
+    while(front != NULL) {
+        consumption = snprintf(string + offset, size, "P%lu-", PCB_get_pid(front->pcb));
+        offset += consumption;
+        size -= consumption;
+
+        if(front->next == NULL) {
+            consumption= snprintf(string + offset, size, "*");
+            offset += consumption;
+            size -= consumption;
+        } else {
+            consumption= snprintf(string + offset, size, ">");
+            offset += consumption;
+            size -= consumption;
+        }
+
+        front = front->next;
+    }
+
+    return string;
 }

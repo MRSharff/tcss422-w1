@@ -3,12 +3,16 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <string.h>
 #include "fifo_queue.h"
 
+unsigned short generate_priority();
+
 void testConstructor(void) {
     FIFOq_p fq = FIFOq_construct();
-    if (fq) {
+    if (fq != NULL) {
         puts("FIFOq_construct passed");
     } else {
         puts("FIFOq_construct failed");
@@ -78,6 +82,65 @@ void testDequeue(PCB_p testPCB) {
     }
 }
 
+void stressTest() {
+    FIFOq_p fq = FIFOq_construct();
+    FIFOq_init(fq);
+
+    // Generate a test size between 10 and 30.
+    int test_size = (rand() % 21) + 10;
+    printf("Running a stress test of size %d:\n", test_size);
+
+    // Enqueue test_size amount of randomly generated PCBs.
+    for(int i = 0; i < test_size; i++) {
+        PCB_p pcb = PCB_construct();
+        PCB_init(pcb);
+        PCB_set_pid(pcb, (unsigned long) i);
+        PCB_set_priority(pcb, generate_priority());
+        FIFOq_enqueue(fq, pcb);
+
+        int string_size = 32 + (4 * FIFOq_size(fq)) + 1;    // 32 for header, 4 for each node, 1 for \0
+        char* fq_string = (char*) malloc(string_size);
+        FIFOq_toString(fq, fq_string, string_size);
+
+        char pcb_string[100];
+        PCB_toString(pcb, pcb_string);
+
+        printf("%s : contents: %s\n", fq_string, pcb_string);
+
+        free(fq_string);
+    }
+
+    puts("Enqueue FIFOq complete.");
+    puts("Dequeue FIFOq started.");
+
+    // Dequeue test_size amount of randomly generated PCBs.
+    for(int i = 0; i < test_size; i++) {
+        int string_size = 32 + (4 * FIFOq_size(fq)) + 1;    // 11 for header, 4 for each node, 1 for \0
+        char* fq_string = (char*) malloc(string_size);
+        FIFOq_toString(fq, fq_string, string_size);
+
+        PCB_p pcb = FIFOq_dequeue(fq);
+        char pcb_string[100];
+        PCB_toString(pcb, pcb_string);
+
+        printf("%s : contents: %s\n", fq_string, pcb_string);
+
+        free(fq_string);
+        PCB_destruct(pcb);
+    }
+
+    // Determine whether the amount of PCBs dequeued are the amount of PCBs enqueued.
+    if(FIFOq_is_empty(fq)) {
+        puts("FIFOq stress test passed.");
+    } else {
+        puts("FIFOq stress test failed.");
+    }
+}
+
+unsigned short generate_priority() {
+    return (unsigned short) rand() % 32;
+}
+
 int main(void) {
     PCB_p testPCB = PCB_construct();
     PCB_init(testPCB);
@@ -89,6 +152,9 @@ int main(void) {
     testisEmpty();
     testEnqueue(testPCB);
     testDequeue(testPCB);
+
+    srand(time(NULL));
+    stressTest();
 
     PCB_destruct(testPCB);
     puts("End Test");
