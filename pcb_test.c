@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 /** Checks if construction is successful.*/
 void testConstructor(){
 	PCB_p t1 = PCB_construct();
@@ -59,7 +60,7 @@ void testToString(char * theStr){
 	PCB_init(t1);
 	PCB_set_pid(t1, 123456789UL);
 	PCB_toString(t1, theStr);
-	printf("%s\n",theStr);
+	//printf("%s\n",theStr);
 	if (strcmp(theStr, "PID: 75BCD15, State: 0, Priority: 0, PC: 0")) {
 		puts("toString failed");
 	} else {
@@ -71,9 +72,26 @@ void testToString(char * theStr){
 /** Driver for testing all methods of pcb.*/
 int main(int theArgC, char* theArgV[]){
     char str[100];
+
+
 	testConstructor();
     testInitializer();
 	testSetPid();
 	testGetPid();
 	testToString(str);
-} 
+	//test from specs screen shot this output
+	puts("\n\n\n\n\n\n\n\n\n\n\n");
+	puts("PCB TEST");
+	PCB_p t1 = PCB_construct();
+	PCB_init(t1);
+	PCB_toString(t1, str);
+	printf("%s\n",str);
+	PCB_set_state(t1, ready);
+	PCB_set_pid(t1, 1234);
+	t1->pc = 12345;
+	PCB_set_priority(t1, rand()%32);
+	PCB_toString(t1, str);
+	printf("%s\n",str);
+	puts("-----------------------------------------");
+
+}
