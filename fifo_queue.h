@@ -11,6 +11,7 @@ typedef struct FIFO_q {
 typedef FIFOq* FIFOq_p;
 
 FIFOq_p FIFOq_construct(void);
+int FIFOq_destruct(FIFOq_p fqueue);
 int FIFOq_init(FIFOq_p queue);
 int FIFOq_is_empty(FIFOq_p queue);
 int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb);

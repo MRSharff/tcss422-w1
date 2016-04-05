@@ -22,6 +22,10 @@ FIFOq_p FIFOq_construct() {
     return (FIFOq_p) malloc(sizeof(FIFOq));
 }
 
+int FIFOq_destruct(FIFOq_p fqueue) {
+    free(fqueue);
+}
+
 int FIFOq_init(FIFOq_p queue) {
     if (queue == NULL) {
         return NULL_OBJECT;
@@ -29,11 +33,15 @@ int FIFOq_init(FIFOq_p queue) {
     queue->size = 0;
     queue->front = NULL;
     queue->rear = NULL;
+    return SUCCESS;
 }
 
 int FIFOq_is_empty(FIFOq_p queue) {
 //    return queue->front == queue->rear;
-    return queue->front == NULL;
+    if (queue->size == 0) {
+        return 1;
+    }
+    return 0;
 }
 
 int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb) {
@@ -43,8 +51,15 @@ int FIFOq_enqueue(FIFOq_p queue, PCB_p pcb) {
     Node_p newNode = NODE_construct();
     NODE_init(newNode, pcb);
     queue->rear->next = newNode;
+    queue->size++;
+    return SUCCESS;
 }
 
 PCB_p FIFOq_dequeue(FIFOq_p queue) {
-    return NULL;
+    if (queue->front == NULL) {
+        return NULL;
+    }
+    Node_p temp = queue->front;
+    queue->front = temp->next;
+    return temp->pcb;
 }
