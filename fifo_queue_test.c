@@ -66,6 +66,7 @@ void testDequeue(PCB_p testPCB) {
     FIFOq_enqueue(fq, testPCB);
 
     FIFOq_dequeue(fq);
+    puts("End");
 }
 
 int main(void) {

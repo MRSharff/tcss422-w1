@@ -1,5 +1,6 @@
 #include "fifo_queue.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 
 
@@ -10,7 +11,7 @@ Node_p NODE_construct(void) {
     }
     retNode->pcb = malloc(sizeof(PCB));
     retNode->next = malloc(sizeof(Node));
-    if (retNode->pcb = NULL || retNode->next == NULL) {
+    if (retNode->pcb == NULL || retNode->next == NULL) {
         free(retNode);
         return NULL;
     }
@@ -29,7 +30,8 @@ FIFOq_p FIFOq_construct() {
     returnqueue->front = malloc(sizeof(Node));
     returnqueue->rear = malloc(sizeof(Node));
     if (returnqueue->front == NULL || returnqueue->rear == NULL) {
-        free (returnqueue);
+        free(returnqueue);
+        puts("front or rear was null");
         return NULL;
     }
     return returnqueue;
@@ -75,4 +77,10 @@ PCB_p FIFOq_dequeue(FIFOq_p queue) {
     Node_p temp = queue->front;
     queue->front = temp->next;
     return temp->pcb;
+}
+
+int main(void) {
+    FIFOq_p fq = FIFOq_construct();
+    FIFOq_init(fq);
+    return 1;
 }
