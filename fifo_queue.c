@@ -4,7 +4,7 @@
 
 FIFOq_p FIFOq_construct() {
     return (FIFOq_p) malloc(sizeof(FIFOq));
-
+}
 
 Node_p NODE_construct(void) {
     Node_p retNode = malloc(sizeof(Node));

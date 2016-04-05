@@ -11,18 +11,6 @@ struct node {
     Node_p next;
 };
 
-#include "pcb.h"
-
-// Error Handling Values
-#define SUCCESS 0
-#define NULL_OBJECT -1
-
-typedef struct node {
-    PCB_p pcb;
-    struct node* next;
-} Node;
-typedef Node* Node_p;
-
 typedef struct FIFO_q {
     int size;
     Node_p front;
