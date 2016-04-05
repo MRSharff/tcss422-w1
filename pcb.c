@@ -30,7 +30,7 @@
 
 //Member Functions
 PCB_p PCB_construct (void) {
-  return (PCB_p) malloc(sizeof(PCB));
+  return malloc(sizeof(PCB));
 }
 
 void PCB_destruct(PCB_p pcb) {

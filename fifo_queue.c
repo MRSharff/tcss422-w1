@@ -1,17 +1,20 @@
 #include "fifo_queue.h"
-#include "pcb.h"
 #include <stdlib.h>
 
-typedef struct node Node;
-typedef Node * Node_p;
 
-struct node {
-    PCB_p pcb;
-    Node_p next;
-};
 
 Node_p NODE_construct(void) {
-    return (Node_p) malloc(sizeof(Node));
+    Node_p retNode = malloc(sizeof(Node));
+    if (retNode == NULL) {
+        return NULL;
+    }
+    retNode->pcb = malloc(sizeof(PCB));
+    retNode->next = malloc(sizeof(Node));
+    if (retNode->pcb = NULL || retNode->next == NULL) {
+        free(retNode);
+        return NULL;
+    }
+    return retNode;
 }
 
 int NODE_init(Node_p node, PCB_p pcb) {
@@ -19,7 +22,17 @@ int NODE_init(Node_p node, PCB_p pcb) {
     node->next = NULL;
 }
 FIFOq_p FIFOq_construct() {
-    return (FIFOq_p) malloc(sizeof(FIFOq));
+    FIFOq_p returnqueue = malloc(sizeof(FIFOq));
+    if (returnqueue == NULL) {
+        return NULL;
+    }
+    returnqueue->front = malloc(sizeof(Node));
+    returnqueue->rear = malloc(sizeof(Node));
+    if (returnqueue->front == NULL || returnqueue->rear == NULL) {
+        free (returnqueue);
+        return NULL;
+    }
+    return returnqueue;
 }
 
 int FIFOq_destruct(FIFOq_p fqueue) {
