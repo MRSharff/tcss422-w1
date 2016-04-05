@@ -109,19 +109,23 @@ void stressTest() {
 
         free(fq_string);
     }
-
     puts("Enqueue FIFOq complete.");
-    puts("Dequeue FIFOq started.");
 
+    puts("Dequeue FIFOq started.");
     // Dequeue test_size amount of randomly generated PCBs.
+    int checkPID = -1;   // PCBs should be dequeued in ascending order (they were enqueued as such).
     for(int i = 0; i < test_size; i++) {
         int string_size = 32 + (4 * FIFOq_size(fq)) + 1;    // 11 for header, 4 for each node, 1 for \0
         char* fq_string = (char*) malloc(string_size);
         FIFOq_toString(fq, fq_string, string_size);
 
         PCB_p pcb = FIFOq_dequeue(fq);
+        checkPID++;
         char pcb_string[100];
         PCB_toString(pcb, pcb_string);
+        if(checkPID != PCB_get_pid(pcb)) {
+            checkPID = -1;
+        }
 
         printf("%s : contents: %s\n", fq_string, pcb_string);
 
@@ -130,10 +134,11 @@ void stressTest() {
     }
 
     // Determine whether the amount of PCBs dequeued are the amount of PCBs enqueued.
-    if(FIFOq_is_empty(fq)) {
+    // Also check whether PCBs were dequeued in correct order.
+    if(FIFOq_is_empty(fq) && checkPID == test_size - 1) {
         puts("FIFOq stress test passed.");
     } else {
-        puts("FIFOq stress test failed.");
+        printf("FIFOq stress test failed with checkPID = %d.\n", checkPID);
     }
 }
 

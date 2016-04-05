@@ -34,7 +34,7 @@ PCB_p PCB_construct (void) {
 }
 
 void PCB_destruct(PCB_p pcb) {
-  free(pcb);
+  if(pcb != NULL) free(pcb);
 }
 
 int PCB_init(PCB_p pcb) {

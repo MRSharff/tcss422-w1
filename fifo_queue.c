@@ -28,6 +28,10 @@ int FIFOq_init(FIFOq_p queue) {
 }
 
 int FIFOq_destruct(FIFOq_p fqueue) {
+    if(fqueue == NULL) {
+        return NULL_OBJECT;
+    }
+
     // Free all of the nodes in memory.
     Node_p traverse = fqueue->front;
     while(traverse != NULL) {
