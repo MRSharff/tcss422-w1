@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include "fifo_queue.h"
 
-typedef struct node {
-    PCB_p pcb;
-    struct node* next;
-} Node;
-
 FIFOq_p FIFOq_construct() {
     return (FIFOq_p) malloc(sizeof(FIFOq));
 }

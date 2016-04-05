@@ -7,10 +7,16 @@
 #define SUCCESS 0
 #define NULL_OBJECT -1
 
+typedef struct node {
+    PCB_p pcb;
+    struct node* next;
+} Node;
+typedef Node* Node_p;
+
 typedef struct FIFO_q {
     int size;
-    struct node* front;
-    struct node* rear;
+    Node_p front;
+    Node_p rear;
 } FIFOq;
 typedef FIFOq* FIFOq_p;
 
