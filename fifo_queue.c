@@ -57,7 +57,9 @@ PCB_p FIFOq_dequeue(FIFOq_p queue) {
     Node* old_front = queue->front;
     queue->front = queue->front->next;
     queue->size--;
+
     PCB_p result = old_front->pcb;
     free(old_front);
-    return queue->front->pcb;
+
+    return result;
 }
