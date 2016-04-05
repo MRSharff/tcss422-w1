@@ -63,7 +63,7 @@ void testEnqueue(PCB_p testPCB) {
 void testDequeue(PCB_p testPCB) {
     char pcbteststring[100];
     char pcbqstring[100];
-    PCB_toString(testPCB, pcbqstring);
+    PCB_toString(testPCB, pcbteststring);
     FIFOq_p fq = FIFOq_construct();
     FIFOq_init(fq);
     FIFOq_enqueue(fq, testPCB);
@@ -76,13 +76,13 @@ void testDequeue(PCB_p testPCB) {
     } else {
         puts("FIFO_dequeue failed");
     }
-    puts(pcbqstring);
-    puts(pcbteststring);
 }
 
 int main(void) {
     PCB_p testPCB = PCB_construct();
     PCB_init(testPCB);
+    PCB_set_pid(testPCB, 15UL);
+    PCB_set_priority(testPCB, 2);
 
     testConstructor();
     testInitializer();
