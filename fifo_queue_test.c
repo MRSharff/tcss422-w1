@@ -41,32 +41,43 @@ void testisEmpty() {
 void testEnqueue(PCB_p testPCB) {
     char pcbteststring[100];
     char pcbqstring[100];
-    puts("Debug 0");
     FIFOq_p fq = FIFOq_construct();
-    puts("debug 1");
     FIFOq_init(fq);
-    puts("debug 2");
     if (FIFOq_enqueue(fq, testPCB) == 1) {
         puts("enqueued");
     }
-    puts("Debug 3");
+
     if (FIFOq_is_empty(fq) == 0) {
         int stringtest = strcmp(PCB_toString(testPCB, pcbteststring), PCB_toString(FIFOq_dequeue(fq), pcbqstring));
         if (stringtest == 0) {
             puts("FIFOq_enqueue passed");
+        } else {
+            puts("FIFOq_enqueue failed");
         }
+    } else {
+        puts("FIFOq_enqueue failed");
     }
-    puts("FIFOq_enqueue failed");
     FIFOq_destruct(fq);
 }
 
 void testDequeue(PCB_p testPCB) {
+    char pcbteststring[100];
+    char pcbqstring[100];
+    PCB_toString(testPCB, pcbqstring);
     FIFOq_p fq = FIFOq_construct();
     FIFOq_init(fq);
     FIFOq_enqueue(fq, testPCB);
 
-    FIFOq_dequeue(fq);
-    puts("End");
+    PCB_p dqPCB = FIFOq_dequeue(fq);
+    PCB_toString(dqPCB, pcbqstring);
+
+    if (strcmp(pcbqstring, pcbteststring) == 0) {
+        puts("FIFO_dequeue passed");
+    } else {
+        puts("FIFO_dequeue failed");
+    }
+    puts(pcbqstring);
+    puts(pcbteststring);
 }
 
 int main(void) {
@@ -80,4 +91,5 @@ int main(void) {
     testDequeue(testPCB);
 
     PCB_destruct(testPCB);
+    puts("End Test");
 }
