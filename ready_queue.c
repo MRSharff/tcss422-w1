@@ -7,6 +7,7 @@ READYq_p READYq_construct(void) {
     int i;
     for (i = 0; i < PRIORITYRANGE; i++) {
         newRQueue->fifo_queues[i] = FIFOq_construct();
+        FIFOq_init(newRQueue->fifo_queues[i]);
     }
     return newRQueue;
 }
