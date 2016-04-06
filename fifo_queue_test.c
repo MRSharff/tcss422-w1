@@ -105,7 +105,7 @@ void stressTest() {
         char pcb_string[100];
         PCB_toString(pcb, pcb_string);
 
-        printf("%s : contents: %s\n", fq_string, pcb_string);
+        printf("Q:%s : contents: %s\n", fq_string, pcb_string);
 
         free(fq_string);
     }
@@ -127,7 +127,7 @@ void stressTest() {
             checkPID = -1;
         }
 
-        printf("%s : contents: %s\n", fq_string, pcb_string);
+        printf("Q:%s : contents: %s\n", fq_string, pcb_string);
 
         free(fq_string);
         PCB_destruct(pcb);

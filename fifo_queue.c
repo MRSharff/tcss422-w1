@@ -98,7 +98,7 @@ PCB_p FIFOq_dequeue(FIFOq_p queue) {
 char* FIFOq_toString(FIFOq_p queue, char* string, int size) {
     // Note: We assume that the controller has allocated a string of appropriate size (using FIFOq_size() function).
     int offset = 0;
-    int consumption = snprintf(string, size, "Q:Count=%d: ", FIFOq_size(queue));
+    int consumption = snprintf(string, size, "Count=%d: ", FIFOq_size(queue));
     offset += consumption;
     size -= consumption;
 
