@@ -16,8 +16,10 @@ READYq_p READYq_construct(void);
 
 void READYq_destruct(READYq_p readyqueue);
 
-void enqueue(READYq_p queue, PCB_p pcb);
+void READYq_enqueue(READYq_p queue, PCB_p pcb);
 
-PCB_p dequeue(READYq_p queue);
+PCB_p READYq_dequeue(READYq_p queue);
+
+char * READYq_toString(READYq_p readyqueue, char * string, int size);
 
 #endif

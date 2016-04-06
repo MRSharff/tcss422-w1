@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ready_queue.h"
-#include "fifo_queue.h"
 #define LOOPS 10
 #define NUM_OF_PRIORITIES
 
