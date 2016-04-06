@@ -8,7 +8,7 @@ void testConstructor(){
 	PCB_p t1 = PCB_construct();
     if(t1){
 		puts("Constructor passed");
-		free(t1);
+		PCB_destruct(t1);
     } else {
         puts("Constructor failed");
     }
@@ -26,7 +26,7 @@ void testInitializer() {
     } else {
 		puts("initializer failed");
 	}
-	free(t1);
+	PCB_destruct(t1);
 }
 /** Checks if setting pid works. */
 void testSetPid() {
@@ -38,7 +38,7 @@ void testSetPid() {
     } else {
         puts("setting pid failed");
     }
-	free(t1);
+	PCB_destruct(t1);
 }
 /** Test if the get_pid retrieves correct pid. */
 void testGetPid() {
@@ -51,7 +51,7 @@ void testGetPid() {
 	} else {
 		puts("get pid failed");
 	}
-	free(t1);
+	PCB_destruct(t1);
 }
 /** Checks if toString correctly represents
 	the pcb state*/
@@ -67,7 +67,7 @@ void testToString(char * theStr){
 		
 		puts("toString passed");
 	}
-	free(t1);	
+	PCB_destruct(t1);	
 }
 /** Driver for testing all methods of pcb.*/
 int main(int theArgC, char* theArgV[]){
@@ -93,5 +93,6 @@ int main(int theArgC, char* theArgV[]){
 	PCB_toString(t1, str);
 	printf("%s\n",str);
 	puts("-----------------------------------------");
+	PCB_destruct(t1);
 
 }
