@@ -4,10 +4,9 @@
 #include <time.h>
 #include "ready_queue.h"
 #define LOOPS 10
-#define NUM_OF_PRIORITIES
 
 int main(int theArgC, char * theArgV[]) {
-	char str[200];
+	char str[2000];
 	READYq_p t1 = READYq_construct();
 	int i;
 	int j;
@@ -22,12 +21,13 @@ int main(int theArgC, char * theArgV[]) {
 			PCB_init(tmp_pcb);
 			PCB_set_pid(tmp_pcb, pcb_cnt);
 			PCB_set_state(tmp_pcb, ready);
-			PCB_set_priority(tmp_pcb, rand() % NUM_OF_PRIORITIES);
+			PCB_set_priority(tmp_pcb, rand() % PRIORITYRANGE);
 			
 			READYq_enqueue(t1,tmp_pcb);
+            pcb_cnt++;
 		}
-		printf("State after %d enqueues:", LOOPS);
-		READYq_toString(t1, str);
+		printf("State after %d enqueues:\n", LOOPS);
+		READYq_toString(t1, str, 2000);
 		printf("%s\n", str);
 		rand_dequeue = 4 + rand() % 3;
 		printf("Dequeue %d pcbs:\n", rand_dequeue);
@@ -37,12 +37,13 @@ int main(int theArgC, char * theArgV[]) {
 			printf("%s\n", str);
 			PCB_destruct(tmp_pcb);
 		}
-		puts("State After Dequeue:");
-		READYq_toString(t1, str);
+		puts("State After Dequeue:\n");
+		READYq_toString(t1, str, 2000);
 		printf("%s\n\n\n", str);
 	}
 	
 	READYq_destruct(t1);
+    puts("End Test");
 	return 0;
 
 }
