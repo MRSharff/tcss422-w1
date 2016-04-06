@@ -30,11 +30,11 @@
 
 //Member Functions
 PCB_p PCB_construct (void) {
-  return (PCB_p) malloc(sizeof(PCB));
+  return malloc(sizeof(PCB));
 }
 
 void PCB_destruct(PCB_p pcb) {
-  free(pcb);
+  if(pcb != NULL) free(pcb);
 }
 
 int PCB_init(PCB_p pcb) {
@@ -42,7 +42,7 @@ int PCB_init(PCB_p pcb) {
         return NULL_OBJECT;
     }
     pcb->pid = DEFAULT_PID;
-    pcb->state = DEFAULT_STATE;
+    pcb->state = (State) DEFAULT_STATE;
     pcb->priority = DEFAULT_PRIORITY;
     pcb->pc = DEFAULT_PC;
     return SUCCESS;
@@ -86,7 +86,7 @@ unsigned short PCB_get_priority(PCB_p pcb) {
 }
 
 char * PCB_toString(PCB_p pcb, char * string) {
-  sprintf(string, "PID: %0lX, State: %d, Priority: %0X, PC: %0lX",
+  sprintf(string, "PID: 0x%0lX, State: %d, Priority: 0x%0X, PC: 0x%04lX",
           pcb->pid, pcb->state, pcb->priority, pcb->pc);
   return string;
 }

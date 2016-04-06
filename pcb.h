@@ -10,7 +10,7 @@
 
 /* Error Handling Values */
 #define SUCCESS 0
-#define NULL_OBJECT 1
+#define NULL_OBJECT -1
 
 /* typedefs for State, PCB, and PCB_p */
 typedef enum state_type {
