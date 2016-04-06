@@ -2,7 +2,7 @@
 #include "ready_queue.h"
 
 READYq_p READYq_construct(void) {
-    READYq_p newRQueue = malloc(sizeof(READYq_p));
+    READYq_p newRQueue = malloc(sizeof(READYq));
 //    newRQueue->fifo_queues = malloc(PRIORITYRANGE * sizeof(FIFOq_p));
     int i;
     for (i = 0; i < PRIORITYRANGE; i++) {
