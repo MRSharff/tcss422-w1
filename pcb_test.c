@@ -78,7 +78,6 @@ int main(int theArgC, char* theArgV[]){
     testInitializer();
 	testSetPid();
 	testGetPid();
-	testToString(str);
 	//test from specs screen shot this output
 	puts("\n\n\n\n\n\n\n\n\n\n\n");
 	puts("PCB TEST");

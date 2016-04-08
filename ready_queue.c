@@ -51,4 +51,6 @@ char * READYq_toString(READYq_p readyqueue, char * string, int size) {
             size-= consumption;
         }
     }
+
+    return string;
 }

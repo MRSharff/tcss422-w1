@@ -37,9 +37,9 @@ int main(int theArgC, char * theArgV[]) {
 			printf("%s\n", str);
 			PCB_destruct(tmp_pcb);
 		}
-		puts("State After Dequeue:\n");
+		puts("\nState After Dequeue:");
 		READYq_toString(t1, str, 2000);
-		printf("%s\n\n\n", str);
+		printf("%s\n", str);
 	}
 	
 	READYq_destruct(t1);
