@@ -34,3 +34,5 @@ CMakeLists.txt
 
 # Debug files
 *.dSYM/
+
+CMakeLists.txt
