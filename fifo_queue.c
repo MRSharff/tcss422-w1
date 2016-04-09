@@ -5,7 +5,8 @@
 FIFOq_p FIFOq_construct() {
     FIFOq_p fq = (FIFOq_p) malloc(sizeof(FIFOq));
 
-    // Sometimes we get segfaults if the OS tries to allocate the same memory location.
+    // Sometimes we get segfaults if the OS tries to allocate the same memory location,
+    // and this location happended to have a previous pointer already set.
     if(fq != NULL) {
         fq->front = NULL;
         fq->rear = NULL;
@@ -14,6 +15,7 @@ FIFOq_p FIFOq_construct() {
     return fq;
 }
 
+// Clears the passed FIFOq.
 int FIFOq_init(FIFOq_p queue) {
     if(queue == NULL) {
         return NULL_OBJECT;
@@ -110,14 +112,13 @@ char* FIFOq_toString(FIFOq_p queue, char* string, int size) {
 
         if(front->next == NULL) {
             consumption= snprintf(string + offset, size, "*");
-            offset += consumption;
-            size -= consumption;
+            
         } else {
             consumption= snprintf(string + offset, size, ">");
-            offset += consumption;
-            size -= consumption;
         }
-
+        offset += consumption;
+        
+        size -= consumption;
         front = front->next;
     }
 
